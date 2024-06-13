@@ -1,30 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <AssemblyName>CoffinSleep</AssemblyName>
-        <Description>A VRising mod that speeds up time while you sleep in your coffin.</Description>
-        <Version>0.0.0</Version>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>CoffinSleep</AssemblyName>
+    <Description>A VRising mod that speeds up time while you sleep in your coffin.</Description>
+    <BepInExVersion>6.0.0-be.691</BepInExVersion>
+    <Version>0.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
 
-    <Target Name="Thunderstore Copy to Dist" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
-        <Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="./dist" />
-    </Target>
+  <Target Name="Thunderstore Copy to Dist" AfterTargets="AfterBuild">
+    <Copy SourceFiles="$(OutDir)$(ProjectName).dll" DestinationFolder="./dist" />
+  </Target>
 
-    <Import Project="Config.xml" Condition=" '$(Configuration)' == 'Test'" />
-    <Target Name="CopyDLLs" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Test'">
-        <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
-        <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
-    </Target>
+  <Import Project="Config.xml" Condition=" '$(Configuration)' != 'Release'" />
+  <Target Name="CopyDLLs" AfterTargets="AfterBuild"  Condition=" '$(Configuration)' != 'Release'">
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
+  </Target>
 
-    <ItemGroup>
-        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.668" IncludeAssets="compile" />
-        <PackageReference Include="BepInEx.Core" Version="6.0.0-be.668" IncludeAssets="compile" />
-        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-        <PackageReference Include="VRising.Bloodstone" Version="0.1.4" />
-        <PackageReference Include="VRising.Unhollowed.Client" Version="0.6.5.*" />
-        <PackageReference Include="System.Text.Json" Version="7.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="VRising.Bloodstone" Version="0.2.2" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.5.802790001" />
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
+  </ItemGroup>
+
 </Project>
