@@ -3,12 +3,25 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>CoffinSleep</AssemblyName>
+    <RootNamespace>CoffinSleep</RootNamespace>
+    <Authors>caioreix</Authors>
     <Description>A VRising mod that speeds up time while you sleep in your coffin.</Description>
     <BepInExVersion>6.0.0-be.691</BepInExVersion>
     <Version>0.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>disable</Nullable>
+    <NoWarn>NU5104</NoWarn>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TEST</DefineConstants>
   </PropertyGroup>
 
   <Target Name="Thunderstore Copy to Dist" AfterTargets="AfterBuild">
@@ -25,9 +38,7 @@
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Bloodstone" Version="0.2.2" />
     <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.5.802790001" />
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

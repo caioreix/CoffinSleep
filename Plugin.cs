@@ -1,33 +1,38 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Unity.IL2CPP;
 using BepInEx.Logging;
+using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using Utils.Logger;
-using Bloodstone.API;
+using Utils.VRising.Entities;
 
 namespace CoffinSleep;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-[BepInDependency("gg.deca.Bloodstone")]
+// [BepInDependency("gg.deca.Bloodstone")]
 // [Bloodstone.API.Reloadable]
-public class Plugin : BasePlugin {
-    public override void Load() {
-        if (VWorld.IsServer) Server.Load(this.Config, this.Log);
-        if (VWorld.IsClient) Client.Load(this.Config, this.Log);
+public class Plugin : BasePlugin
+{
+    public override void Load()
+    {
+        if (World.IsServer) Server.Load(this.Config, this.Log);
+        if (World.IsClient) Client.Load(this.Config, this.Log);
     }
 
-    public override bool Unload() {
-        if (VWorld.IsServer) Server.Unload();
-        if (VWorld.IsClient) Client.Unload();
+    public override bool Unload()
+    {
+        if (World.IsServer) Server.Unload();
+        if (World.IsClient) Client.Unload();
 
         return false;
     }
 }
 
-public static class Server {
+public static class Server
+{
     public static Harmony harmony;
-    internal static void Load(ConfigFile config, ManualLogSource logger) {
+    internal static void Load(ConfigFile config, ManualLogSource logger)
+    {
         Settings.Config.Load(config, logger, "Server");
 
         harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
@@ -38,7 +43,8 @@ public static class Server {
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} server side is loaded!");
     }
 
-    internal static bool Unload() {
+    internal static bool Unload()
+    {
         harmony.UnpatchSelf();
 
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} server side is unloaded!");
@@ -46,9 +52,11 @@ public static class Server {
     }
 }
 
-internal static class Client {
+internal static class Client
+{
     public static Harmony harmony;
-    internal static void Load(ConfigFile config, ManualLogSource logger) {
+    internal static void Load(ConfigFile config, ManualLogSource logger)
+    {
         Settings.Config.Load(config, logger, "Client");
 
         harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
@@ -59,7 +67,8 @@ internal static class Client {
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is loaded!");
     }
 
-    internal static bool Unload() {
+    internal static bool Unload()
+    {
         harmony.UnpatchSelf();
 
         Log.Info($"Plugin {MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} client side is unloaded!");

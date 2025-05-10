@@ -1,15 +1,15 @@
-using BepInEx.Configuration;
+using Utils.Settings;
 
 namespace CoffinSleep.Settings;
 
 public class ENV
 {
     // Server
-    public static ConfigEntry<int> IncreasedTime;
-    public static ConfigEntry<bool> OnlyDayTimeSleep;
-    public static ConfigEntry<bool> OnlyAllPlayersSleeping;
-    public static ConfigEntry<bool> PauseDuringTransitions;
-    public static ConfigEntry<bool> SleepBloodMoon;
+    public static ConfigElement<int> IncreasedTime;
+    public static ConfigElement<bool> OnlyDayTimeSleep;
+    public static ConfigElement<bool> OnlyAllPlayersSleeping;
+    public static ConfigElement<bool> PauseDuringTransitions;
+    public static ConfigElement<bool> SleepBloodMoon;
 
 
     public class Server
