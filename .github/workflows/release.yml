@@ -34,7 +34,7 @@ jobs:
         with:
           additionalArguments: '/overrideconfig "mode=Mainline" /overrideconfig "next-version=2.0.0"'
       - name: Download Release
-        run: gh release download ${{ env.RELEASE_TAG }} -D ./dist
+        run: gh release download v${{ env.RELEASE_TAG }} -D ./dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install tcli
