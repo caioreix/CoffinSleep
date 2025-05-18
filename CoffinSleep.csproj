@@ -6,15 +6,16 @@
     <RootNamespace>CoffinSleep</RootNamespace>
     <Authors>caioreix</Authors>
     <Description>A VRising mod that speeds up time while you sleep in your coffin.</Description>
-    <BepInExVersion>6.0.0-be.691</BepInExVersion>
     <Version>0.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <NoWarn>IDE0130;NU5104</NoWarn>
+
+    <BepInExVersion>6.0.0-be.733</BepInExVersion>
+
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Nullable>disable</Nullable>
-    <NoWarn>NU5104</NoWarn>
-
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
@@ -30,7 +31,8 @@
 
   <Import Project="Config.xml" Condition=" '$(Configuration)' != 'Release'" />
   <Target Name="CopyDLLs" AfterTargets="AfterBuild"  Condition=" '$(Configuration)' != 'Release'">
-    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildDestinationFolder)" />
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildClientDestinationFolder)/Test" Condition="'$(BuildClientDestinationFolder)' != ''" />
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(BuildServerDestinationFolder)/Test" Condition="'$(BuildServerDestinationFolder)' != ''" />
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="./dist" />
   </Target>
 
@@ -38,7 +40,7 @@
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.Core" Version="$(BepInExVersion)" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.5.802790001" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.1.8.9179701" />
   </ItemGroup>
 
 </Project>
